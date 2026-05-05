@@ -1,0 +1,74 @@
+We are now moving from mock data to a real Supabase backend. Here is the full scope of work, do it step by step and confirm each major section before moving to the next.
+1. Supabase Setup
+Create a supabaseClient.ts file using the Supabase JS client. Use environment variables for the URL and anon key (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY). Set up the following tables with proper types in a database.types.ts file:
+
+profiles — id (uuid, references auth.users), phone, full_name, avatar_url, role (enum: renter/host/admin), created_at
+listings — id, host_id (references profiles), title, type, wilaya, price, area, bedrooms, bathrooms, description, status (enum: pending/active/expired/rejected), latitude, longitude, views (int, default 0), contact_clicks (int, default 0), created_at, expires_at (30 days from creation)
+listing_images — id, listing_id, url, display_order
+listing_amenities — id, listing_id, amenity
+listing_tags — id, listing_id, tag
+reviews — id, listing_id, author_id (references profiles), stars (int 1-5), comment, created_at
+
+Also generate the SQL migration script for all tables with RLS policies:
+
+Anyone can read active listings and reviews
+Only the host can update/delete their own listings
+Only authenticated users can submit listings and reviews
+Only admins can change listing status
+
+2. Authentication
+Replace all mock auth with real Supabase auth:
+
+Sign up flow: collect full name, phone number (+213 format), and password. After sign up, create a matching row in profiles with role defaulting to renter
+Phone verification UI is ready and shows a code input screen, but skip actual SMS sending for now — just auto-verify and proceed
+Sign in with phone + password
+Persistent session using Supabase's built-in session management
+A global useAuth hook that exposes: user, profile, signIn, signUp, signOut, loading
+Protect routes: /become-a-host, /favorites, /admin, /dashboard redirect to sign in if not authenticated
+
+3. Delete All Fake Data
+Remove all mock listings arrays and fake data files. Every data fetch must now come from Supabase. Update all existing hooks and components that used mock data to use real Supabase queries. Show a loading skeleton while data fetches and a proper error state if the query fails.
+4. Listings Flow
+
+The become-a-host multi-step form now saves to Supabase on submission with status pending
+Add a map picker step to the form using Leaflet.js — show a map of Algeria, let the host drop a pin to set the exact location (saves latitude and longitude)
+Image upload in the form — allow up to 8 images, upload to Supabase Storage under a listings bucket, save URLs to listing_images
+Every time a listing detail page is viewed, increment the views counter. Every time the WhatsApp button is clicked, increment contact_clicks
+WhatsApp button must open https://wa.me/[phone] with the owner's phone number pre-filled
+
+5. Host Dashboard
+Create a /dashboard route, only accessible to users with role host or admin. Show:
+
+A summary row: total listings, total views across all listings, total contact clicks, pending listings count
+A table of all the host's listings with columns: title, wilaya, status badge (pending/active/expired/rejected), views, contact clicks, average stars, actions (edit, delete)
+Clicking edit opens the same multi-step form pre-filled with existing data
+Deleting asks for confirmation before removing
+
+6. Host Profile Page
+Create a public /host/[id] route showing:
+
+Host name, avatar, member since date
+All their active listings in the same card grid
+Overall star rating averaged across all their listing reviews
+Total number of reviews
+
+7. Reviews & Stars
+
+On each listing detail page, below the contact section, add a reviews section
+Authenticated renters can leave one review per listing: 1-5 star rating + optional comment
+Show all reviews with reviewer name, stars, comment, and date
+Calculate average stars from the reviews table and show it on the listing card (e.g. ⭐ 4.3) and on the detail page
+Average stars affect search ranking — listings with higher stars appear higher in results when all other filters are equal
+
+8. Better Dropdowns
+Replace all native <select> elements across the entire app (filters, forms, everywhere) with a custom dropdown component built from scratch. It should have: smooth open/close animation, searchable input for long lists (especially the wilaya selector which has 58 options), keyboard navigation, and match the teal color scheme.
+9. Admin Page
+Create a /admin route only accessible to users with role admin. Show:
+
+A tab for Pending listings — each card shows full listing details with an Approve and Reject button. Approving sets status to active, rejecting sets it to rejected
+A tab for All listings — full list with ability to manually change status
+A tab for All users — list of all profiles with their role, ability to promote a user to host or admin
+
+10. Report a Listing
+Add a small "Report" button on each listing detail page. Clicking opens a modal with a reason selector (Scam, Fake listing, Wrong information, Inappropriate content) and an optional description field. Save reports to a reports table (id, listing_id, reporter_id, reason, description, created_at). Show reported listings in the admin panel with a flag.
+Do everything in order, section by section. After each section ask me to confirm before continuing. Use TypeScript strictly throughout with no any types. Follow the existing teal color scheme and component patterns already in the codebase.

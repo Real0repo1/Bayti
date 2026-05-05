@@ -1,0 +1,147 @@
+# Bayti Project - Context Summary
+
+## Project Overview
+Bayti (بيتي - "My Home" in Arabic) is an Algerian rental property marketplace connecting renters with landlords. Built with React + TypeScript + Vite + Supabase.
+
+## What's Been Completed
+
+### ✅ Section 1: Supabase Setup
+- Database schema with all tables (profiles, listings, listing_images, listing_amenities, listing_tags, reviews, reports)
+- TypeScript types in `src/lib/database.types.ts`
+- SQL migrations with RLS policies
+- Supabase client configured
+
+### ✅ Section 2: Authentication
+- Email-based auth (removed phone requirement)
+- Sign up / Sign in / Sign out
+- Protected routes for /favorites and /become-a-host
+- Global useAuth hook exposing user, profile, signIn, signUp, signOut
+- Navigation shows user name when logged in
+
+### ✅ Section 3: Data Fetching (Partial)
+- useListings hook - fetches listings from Supabase
+- useListing hook - single listing with view tracking
+- useReviews hook - reviews with submission
+- Search page uses real Supabase data
+- Listing page uses real Supabase data
+- Home page uses real Supabase data
+- Favorites page uses real Supabase data
+- Loading skeletons and error states added
+
+### ✅ Section 4: Listings Flow (Partial)
+- BecomeHost form with 3 steps
+- Saves listings to Supabase with 'pending' status
+- Saves amenities and tags
+- Success screen after submission
+- Does NOT show pending listings in search (by design)
+
+## What's NOT Done / Left to Complete
+
+### ⏳ Section 4 Continued: Host Dashboard
+- Need `/dashboard` route for hosts
+- Show: total listings, total views, contact clicks, pending count
+- Table of host's listings with edit/delete actions
+- Edit form pre-filled with existing data
+- Delete confirmation
+
+### ⏳ Section 5: Admin Panel
+- Need `/admin` route (admin only)
+- Tab: Pending listings - Approve/Reject buttons
+- Tab: All listings - manual status change
+- Tab: All users - promote to host/admin
+
+### ⏳ Section 6: Host Profile Page
+- Need `/host/[id]` public route
+- Show host name, avatar, member since
+- All their active listings
+- Average star rating
+- Total reviews count
+
+### ⏳ Section 7: Reviews & Stars
+- ✅ Can submit reviews
+- ⏳ Show average stars on listing cards
+- ⏳ Sort by rating in search
+- ⏳ Star rating affects search ranking
+
+### ⏳ Section 8: Better Dropdowns
+- Replace all native `<select>` elements
+- Custom dropdown with search (especially for 58 wilayas)
+- Smooth animations, keyboard navigation
+- Match teal color scheme
+
+### ⏳ Section 9: Report a Listing
+- Report button on listing detail page
+- Modal with reason selector
+- Save to reports table
+- Show flagged listings in admin panel
+
+## Current Architecture
+
+### Tech Stack
+- React 19 + TypeScript
+- Vite build tool
+- Supabase (auth + database + storage)
+- React Router DOM v7
+- CSS modules (no Tailwind)
+
+### Database Tables
+1. **profiles** - User profiles (id, full_name, phone nullable, avatar_url, role)
+2. **listings** - Property listings with status enum
+3. **listing_images** - Image URLs with display order
+4. **listing_amenities** - Checkbox amenities (furnished, pets, etc)
+5. **listing_tags** - Location tags (beach, metro, etc)
+6. **reviews** - Star ratings + comments
+7. **reports** - Listing reports for moderation
+
+### Key Files
+- `src/lib/supabaseClient.ts` - Supabase client
+- `src/lib/database.types.ts` - TypeScript types
+- `src/hooks/useAuth.tsx` - Auth context
+- `src/hooks/useListings.ts` - Data fetching hooks
+- `src/pages/Search.tsx` - Main search (using Supabase)
+- `src/pages/Listing.tsx` - Detail page (using Supabase)
+- `src/pages/BecomeHost.tsx` - Multi-step form (saves to Supabase)
+
+## Current Behavior
+
+### Auth Flow
+1. Sign up with email + name + password
+2. Supabase sends confirmation email
+3. Click email link to activate
+4. Then can sign in
+
+### Listing Creation Flow
+1. User fills 3-step form (property details → amenities → description)
+2. Submit saves to Supabase with status 'pending'
+3. Shows success screen
+4. Listing NOT visible in search (needs admin approval)
+
+### Search Flow
+1. Home/Search pages fetch only 'active' listings from Supabase
+2. Filters applied client-side for amenities/tags
+3. Shows loading skeletons while fetching
+
+## Known Issues to Fix
+1. ⚠️ New listings save as 'pending' but users can't see them yet (need dashboard)
+2. ⚠️ No way for admin to approve listings (need admin panel)
+3. ⚠️ No image upload in BecomeHost form yet
+4. ⚠️ No map picker for location (lat/lng) yet
+5. ⚠️ Image gallery uses gradients instead of real images
+
+## Environment Variables
+```
+VITE_SUPABASE_URL=https://htzuylywaoouxwleykva.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... (f)
+```
+
+## Next Priority Tasks
+1. Create Host Dashboard (`/dashboard`) - see your listings
+2. Create Admin Panel (`/admin`) - approve/reject listings
+3. Add image upload to BecomeHost form
+4. Add map picker for exact location
+5. Implement custom dropdown component
+6. Add report functionality
+
+## Build Status
+✅ Builds successfully with `npm run build`
+⚠️ Supabase tables must be created via SQL migrations before app works

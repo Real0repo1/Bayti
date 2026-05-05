@@ -1,0 +1,565 @@
+.listing-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 1rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+.header nav a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+.listing-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 2rem 2rem;
+}
+
+.images-section {
+  margin-bottom: 2rem;
+}
+
+.main-image {
+  height: 400px;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.small-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.small-img {
+  height: 150px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.small-img:hover {
+  opacity: 0.8;
+}
+
+.details-section {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.title-section {
+  margin-bottom: 1.5rem;
+}
+
+.title-section h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.location {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.features {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feature img {
+  width: 20px;
+  height: 20px;
+}
+
+.description {
+  margin-bottom: 2rem;
+}
+
+.description h2, .amenities h2, .owner-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.description p {
+  color: #555;
+  line-height: 1.7;
+}
+
+.amenities {
+  margin-bottom: 2rem;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.amenity-tag {
+  padding: 0.5rem 1rem;
+  background: #f0f0f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.map-section {
+  margin-bottom: 2rem;
+}
+
+.map-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.map-container {
+  position: relative;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.95);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+.owner-section {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.owner-section p {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.contact-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #25D366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+.contact-btn:hover {
+  background: #20bd5a;
+}
+
+.booking-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.price-tag {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.price-tag .amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #e63946;
+}
+
+.price-tag .period {
+  color: #666;
+}
+
+.fav-btn {
+  width: 100%;
+  padding: 1rem;
+  background: white;
+  color: #0891b2;
+  border: 2px solid #0891b2;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fav-btn:hover {
+  background: #0891b2;
+  color: white;
+}
+
+.fav-btn.favorited {
+  background: #0891b2;
+  color: white;
+}
+
+/* Lightbox Styles */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 90vw;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image {
+  width: 100%;
+  height: 100%;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  border-radius: 8px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.5rem;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 3rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.lightbox-prev {
+  left: -70px;
+}
+
+.lightbox-next {
+  right: -70px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Make images clickable */
+.main-image,
+.small-img {
+  cursor: pointer;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  padding: 0.5rem;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+}
+
+.desktop-nav.mobile-open {
+  display: flex;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 1024px) {
+  .details-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .booking-card {
+    position: static;
+    order: -1;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.5rem 1rem;
+    position: relative;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .desktop-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    gap: 1rem;
+    z-index: 99;
+  }
+
+  .desktop-nav.mobile-open {
+    display: flex;
+  }
+
+  .desktop-nav a {
+    margin: 0;
+    padding: 0.75rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  .header nav a {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .listing-content {
+    padding: 80px 1rem 1rem;
+  }
+
+  .main-image {
+    height: 250px;
+    border-radius: 12px;
+  }
+
+  .small-images {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .small-img {
+    height: 80px;
+    border-radius: 8px;
+  }
+
+  .title-section h1 {
+    font-size: 1.4rem;
+  }
+
+  .location {
+    font-size: 1rem;
+  }
+
+  .features {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .feature {
+    font-size: 0.9rem;
+  }
+
+  .description h2,
+  .amenities h2,
+  .owner-section h2,
+  .map-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .description p {
+    font-size: 0.95rem;
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .amenity-tag {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .map-container {
+    height: 200px;
+  }
+
+  .owner-section {
+    padding: 1rem;
+  }
+
+  .booking-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .price-tag .amount {
+    font-size: 1.75rem;
+  }
+
+  .fav-btn {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  /* Lightbox mobile adjustments */
+  .lightbox-content {
+    width: 95vw;
+    height: 60vh;
+  }
+
+  .lightbox-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+  }
+
+  .lightbox-prev {
+    left: -50px;
+  }
+
+  .lightbox-next {
+    right: -50px;
+  }
+
+  .lightbox-close {
+    top: -40px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header nav a {
+    font-size: 0.85rem;
+    margin-left: 0.75rem;
+  }
+
+  .small-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    display: none;
+  }
+
+  .lightbox-content {
+    width: 100vw;
+    height: 50vh;
+  }
+}
+

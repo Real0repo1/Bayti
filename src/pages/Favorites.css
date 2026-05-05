@@ -1,0 +1,51 @@
+.favorite-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.95);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.favorite-remove-btn:hover {
+  transform: scale(1.1);
+  background: white;
+}
+
+.favorite-remove-btn .heart-filled {
+  color: #e63946;
+}
+
+.empty-state .empty-icon {
+  color: #cbd5e1;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+/* Active nav link */
+.desktop-nav a.active {
+  color: #0891b2;
+  font-weight: 600;
+}
+
+/* Card image positioning for favorite button */
+.card-image {
+  position: relative;
+}
